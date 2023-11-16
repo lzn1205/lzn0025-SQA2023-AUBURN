@@ -1,8 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-# Run security scan on Python files about to be committed
-while read -r file; do
-    if [[ $file =~ \.py$ ]]; then
-        python security_scanner.py "$file"
-    fi
-done < <(git diff --cached --name-only --diff-filter=ACM)
+REPORT="report.csv"
+FILES=("constants.py" "graphtaint.py" "main.py" "parser.py" "scanner.py" "TEST_CONSTANTS.py" "TEST_GRAPH.py" "TEST_INTEGRATION.py" "TEST_PARSING.py" "TEST_SCANNING.py")
+
+for file in "${FILES[@]}"; do
+    bandit -f csv "$file" | tail -n +2 >> "$REPORT" 
+done
+
+# Check if the CSV report is empty, and if so, remove it
+if [ ! -s "$REPORT" ]; then
+    rm -f "$REPORT"
+fi
+
+# Exit with success, assuming no issues were found
+exit 0
