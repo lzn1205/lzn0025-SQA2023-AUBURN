@@ -50,5 +50,5 @@
 
 # Running python file scanner
 echo "Running bandit"
-bandit -r . -f csv -o bandit_results.csv
+bandit -r . -f csv -o result.csv
 echo "Bandit complete"
