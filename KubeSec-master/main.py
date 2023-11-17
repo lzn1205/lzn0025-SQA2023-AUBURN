@@ -6,6 +6,11 @@ Source Code to Run Tool on All Kubernetes Manifests
 import scanner 
 import pandas as pd 
 import constants
+#Import logging module
+import myLogger
+
+# Create a logger object using the function from myLogger.py
+myLogObj  = myLogger.createLoggerObj()
 
 def getCountFromAnalysis(ls_):
     list2ret           = []
@@ -52,15 +57,22 @@ def main(directory: Path = typer.Argument(..., exists=True, help="Absolute path 
     Run KubeSec in a Kubernetes directory and get results in a CSV file.
 
     """
-    content_as_ls, sarif_json   = scanner.runScanner( directory )
-    
-    with open("SLIKUBE.sarif", "w") as f:
-      f.write(sarif_json)
+    try:
+        content_as_ls, sarif_json = scanner.runScanner(directory)
 
-    df_all          = pd.DataFrame( getCountFromAnalysis( content_as_ls ) )
-    outfile = Path(directory, "slikube_results.csv")
+        with open("SLIKUBE.sarif", "w") as f:
+            f.write(sarif_json)
 
-    df_all.to_csv( outfile, header= constants.CSV_HEADER , index=False, encoding= constants.CSV_ENCODING )
+        df_all = pd.DataFrame(getCountFromAnalysis(content_as_ls))
+        outfile = Path(directory, "slikube_results.csv")
+
+        df_all.to_csv(outfile, header=constants.CSV_HEADER, index=False, encoding=constants.CSV_ENCODING)
+
+        # Logging successful execution
+        myLogObj.info("Execution successful: Results written to slikube_results.csv")
+    except Exception as e:
+        # Logging exceptions if any
+        myLogObj.exception("An error occurred: %s", str(e))
 
 
 if __name__ == '__main__':
