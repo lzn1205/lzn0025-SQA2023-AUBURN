@@ -1,3 +1,4 @@
+filename,test_name,test_id,issue_severity,issue_confidence,issue_cwe,issue_text,line_number,col_offset,end_col_offset,line_range,more_info
 constants.py,hardcoded_password_string,B105,LOW,MEDIUM,https://cwe.mitre.org/data/definitions/259.html,Possible hardcoded password: 'Secret',82,31,39,[82],https://bandit.readthedocs.io/en/1.7.5/plugins/b105_hardcoded_password_string.html
 parser.py,blacklist,B404,LOW,HIGH,https://cwe.mitre.org/data/definitions/78.html,Consider possible security implications associated with the subprocess module.,15,0,17,[15],https://bandit.readthedocs.io/en/1.7.5/blacklists/blacklist_imports.html#b404-import-subprocess
 parser.py,start_process_with_partial_path,B607,LOW,HIGH,https://cwe.mitre.org/data/definitions/78.html,Starting a process with a partial executable path,332,25,106,[332],https://bandit.readthedocs.io/en/1.7.5/plugins/b607_start_process_with_partial_path.html
