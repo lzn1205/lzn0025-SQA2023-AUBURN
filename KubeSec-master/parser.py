@@ -14,6 +14,10 @@ import pathlib as pl
 import re
 import subprocess
 import os
+import myLogger
+
+# Create a logger object using the function from myLogger.py
+myLogObj  = myLogger.createLoggerObj()
 
 #update basepath
 base_path = r" "
@@ -28,6 +32,7 @@ def checkIfWeirdYAML(yaml_script):
     val = False
     if ( any(x_ in yaml_script for x_ in constants.WEIRD_PATHS  ) ):
         val = True 
+        myLogObj.info(f'Weird YAML detected: {yaml_script}')
     return val 
 
 
