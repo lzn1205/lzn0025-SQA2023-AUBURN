@@ -1,5 +1,5 @@
 import logging
-
+#Test Git Hook
 def createLoggerObj(): 
     fileName  = 'ForensicReport.log' 
     formatStr = '%(asctime)s %(message)s'
