@@ -3,7 +3,7 @@ Akond Rahman
 May 03, 2021 
 Code to detect security anti-patterns 
 '''
-import parser 
+import parser
 import constants 
 import graphtaint 
 import os 
