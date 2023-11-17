@@ -9,13 +9,26 @@
 
 #!/bin/sh
 
-# if git rev-parse --verify HEAD >/dev/null 2>&1
-# then
-# against=HEAD
-# else
-# Initial commit: diff against an empty tree object
-# 	against=$(git hash-object -t tree /dev/null)
-# fi
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+	against=HEAD
+else
+	# Initial commit: diff against an empty tree object
+	against=$(git hash-object -t tree /dev/null)
+fi
+
+if [ ! -d "./GitHook" ]
+then
+	mkdir "./GitHook"
+fi
+
+echo "Running bandit on project"
+
+bandit -r -f csv -o "./GitHook/report.csv" .
+
+echo "Report available at report.csv"
+
+exit 0
 
 # If you want to allow non-ASCII filenames set this variable to true.
 # allownonascii=$(git config --type=bool hooks.allownonascii)
