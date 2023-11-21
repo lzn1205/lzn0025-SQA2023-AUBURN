@@ -2,22 +2,29 @@ name: Fuzz Testing
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.11" # Choose your Python version
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
           python3.11 -m pip install --upgrade pip
-          pip3.11 install hypothesis
+          pip3.11 install -r requirements.txt
 
       - name: Run fuzz.py
         run: python3.11 fuzz.py
