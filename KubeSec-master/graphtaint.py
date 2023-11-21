@@ -7,6 +7,9 @@ import constants
 import parser 
 import os 
 from itertools import combinations
+import myLogger
+
+myLogObj  = myLogger.createLoggerObj()
 
 def getYAMLFiles(path_to_dir):
     valid_  = [] 
@@ -31,6 +34,7 @@ def getHelmTemplateContent( templ_dir ):
     for template_yaml_file in template_yaml_files:
         value_as_str      = parser.readYAMLAsStr( template_yaml_file )
         template_content_dict[template_yaml_file] = value_as_str
+        myLogObj.info(f"Reading YAML file: {template_yaml_file}")
     return template_content_dict 
 
 
