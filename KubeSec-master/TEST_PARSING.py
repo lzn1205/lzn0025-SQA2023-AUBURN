@@ -7,7 +7,11 @@ Test Utilities for Parsing
 import unittest 
 import TEST_CONSTANTS 
 import parser
+#Import logging module
+import myLogger
 
+# Create a logger object using the function from myLogger.py
+myLogObj  = myLogger.createLoggerObj()
 class TestParsing( unittest.TestCase ):
 
     def testKeyExtraction(self):     
@@ -16,7 +20,8 @@ class TestParsing( unittest.TestCase ):
         dict_as_list = parser.loadMultiYAML( scriptName )
         yaml_as_dict = parser.getSingleDict4MultiDocs( dict_as_list )        
         self.assertEqual(oracle_value, len(yaml_as_dict) ,  TEST_CONSTANTS._common_error_string + str(oracle_value)  )   
-                    
+         # Log information for forensic purposes
+        myLogObj.info(f"Test Key Extraction executed. Oracle value: {oracle_value}, Actual value: {len(yaml_as_dict)}")            
     def testKeyPathLength(self):     
         oracle_value = 9 
         scriptName   = TEST_CONSTANTS._test_yaml
