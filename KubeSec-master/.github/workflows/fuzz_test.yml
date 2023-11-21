@@ -16,8 +16,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install hypothesis
+          python3.11 -m pip install --upgrade pip
+          pip3.11 install hypothesis
 
       - name: Run fuzz.py
-        run: python fuzz.py
+        run: python3.11 fuzz.py
