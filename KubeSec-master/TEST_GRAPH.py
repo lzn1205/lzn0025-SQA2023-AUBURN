@@ -10,6 +10,12 @@ import parser
 import graphtaint
 import scanner
 
+#Import logging module
+import myLogger
+
+# Create a logger object using the function from myLogger.py
+myLogObj  = myLogger.createLoggerObj()
+
 class TestSecretGraphs( unittest.TestCase ):
 
     def testHelmGraphV1(self):     
@@ -17,7 +23,8 @@ class TestSecretGraphs( unittest.TestCase ):
         scriptName   = TEST_CONSTANTS._helm_script1
         _, tupleList, _, _ = scanner.scanSingleManifest(scriptName)
         self.assertEqual(oracle_value, len( tupleList  ) ,  TEST_CONSTANTS._common_error_string + str(oracle_value)  )   
-
+        # Log information for forensic purposes
+        myLogObj.info(f"Test Helm Graph V1 executed. Oracle value: {oracle_value}, Actual value: {len(tupleList)}")
     def testHelmGraphV2(self):     
         oracle_value = 8
         scriptName   = TEST_CONSTANTS._helm_script2
