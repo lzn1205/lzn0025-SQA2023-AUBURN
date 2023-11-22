@@ -8,8 +8,8 @@
 # To enable this hook, rename this file to "pre-commit".
 
 echo "Start Git Hook"
-bandit -a vuln -r . -f csv -o BanditScanResults.csv
-echo "Bandit Scan Complete, Report are in report.csv"
+bandit -a vuln -r . -f csv -o report.csv
+echo "Bandit Scan Complete, Reports are in report.csv"
 
 # if git rev-parse --verify HEAD >/dev/null 2>&1
 # then
