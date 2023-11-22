@@ -7,20 +7,9 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
-if git rev-parse --verify HEAD >/dev/null 2>&1
-then
-	against=HEAD
-else
-	# Initial commit: diff against an empty tree object
-	against=$(git hash-object -t tree /dev/null)
-fi
-
-if [ ! -d "./hooks" ]
-then
-	mkdir "./hooks"
-fi
-bandit -r -f csv -o "./hooks/report.csv" .
-exit 0
+echo "Start Git Hook"
+bandit -a vuln -r . -f csv -o BanditScanResults.csv
+echo "Bandit Scan Complete, Report are in report.csv"
 
 # if git rev-parse --verify HEAD >/dev/null 2>&1
 # then
